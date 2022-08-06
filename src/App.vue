@@ -1,15 +1,45 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <el-container>
+    <el-header>
+      <h1>Chess</h1>
+    </el-header>
+    <el-main>
+      <el-row :gutter="20">
+        <el-col :span="12">
+          <chess-setup v-if="!gameInProgress" @game-start="startGame"></chess-setup>
+          <chess-game-info v-if="gameInProgress"></chess-game-info>
+        </el-col>
+        <el-col :span="12">
+          <chess-board></chess-board>
+        </el-col>
+      </el-row>
+    </el-main>
+  </el-container>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+import ChessBoard from '@/components/board.vue';
+import ChessSetup from '@/components/setup.vue';
+import ChessGameInfo from '@/components/game-info.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld,
+    ChessGameInfo,
+    ChessSetup,
+    ChessBoard,
+  },
+  data() {
+    return {
+      gameInProgress: false,
+    };
+  },
+  methods: {
+    startGame(config) {
+      // eslint-disable-next-line no-console
+      console.log(config);
+      this.gameInProgress = true;
+    },
   },
 };
 </script>
